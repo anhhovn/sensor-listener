@@ -8,6 +8,7 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements SensorEventListener {
@@ -19,6 +20,9 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     //TextViews to display current sensor values
     private TextView mTextSensorLight;
     private TextView mTextSensorProximity;
+
+    //ImageView
+    private ImageView mImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +43,10 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         if(mSensorProximity == null){
             mTextSensorProximity.setText(sensor_error);
         }
+        //get ImageView and assign it the its variable
+        mImage = (ImageView) findViewById(R.id.image);
+
+
     }
 
     @Override
@@ -50,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
 
         if(mSensorLight != null){
-            mSensorManager.registerListener(this, mSensorLight, SensorManager.SENSOR_DELAY_NORMAL);
+            mSensorManager.registerListener(this, mSensorLight, SensorManager.SENSOR_DELAY_UI);
         }
     }
 
@@ -61,17 +69,39 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     }
     @Override
     public void onSensorChanged(SensorEvent sensorEvent) {
+
         int sensorType = sensorEvent.sensor.getType();
         float currentValue = sensorEvent.values[0];
         switch (sensorType){
             //Event came from the light sensor
             case Sensor.TYPE_LIGHT:
                 //Handle light sensor
+                System.out.println(currentValue);
                 mTextSensorLight.setText(getResources().getString(R.string.label_light, currentValue));
+                if(currentValue == 0){
+                    getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.purple_200));
+                }else if(currentValue > 0 && currentValue <=50){
+                    getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.purple_500));
+                }else if(currentValue > 50 && currentValue <=100){
+                    getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.purple_700));
+                }else{
+                    getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.black));
+                }
                 break;
             case Sensor.TYPE_PROXIMITY:
                 //handle proximity sensor
                 mTextSensorProximity.setText(getResources().getString(R.string.label_proximity,currentValue));
+                System.out.println(currentValue);
+
+                if(currentValue == 0){
+                    mImage.requestLayout();
+                    mImage.getLayoutParams().height = 10000;
+
+                }else{
+                    mImage.requestLayout();
+                    mImage.getLayoutParams().height = 200;
+                }
+
                 break;
             default:
                 //do nothing

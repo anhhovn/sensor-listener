@@ -6,18 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/label_light"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Light Sensor: %1$.2f"
-        app:layout_constraintLeft_toLeftOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/label_proximity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Proximity Sensor: %1$.2f"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_light" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="40dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/label_light"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Light Sensor: %1$.2f" />
+
+            <TextView
+                android:id="@+id/label_proximity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Proximity Sensor: %1$.2f" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center|center_horizontal|center_vertical"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/image"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:maxHeight="200px"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/ic_launcher_foreground" />
+        </LinearLayout>
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
