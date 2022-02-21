@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             //Event came from the light sensor
             case Sensor.TYPE_LIGHT:
                 //Handle light sensor
-                System.out.println(currentValue);
                 mTextSensorLight.setText(getResources().getString(R.string.label_light, currentValue));
                 if(currentValue == 0){
                     getWindow().getDecorView().setBackgroundColor(getResources().getColor(R.color.purple_200));
@@ -91,8 +90,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
             case Sensor.TYPE_PROXIMITY:
                 //handle proximity sensor
                 mTextSensorProximity.setText(getResources().getString(R.string.label_proximity,currentValue));
-                System.out.println(currentValue);
-
                 if(currentValue == 0){
                     mImage.requestLayout();
                     mImage.getLayoutParams().height = 10000;
@@ -101,7 +98,6 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                     mImage.requestLayout();
                     mImage.getLayoutParams().height = 200;
                 }
-
                 break;
             default:
                 //do nothing
